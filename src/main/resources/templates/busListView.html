@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus List</title>
+</head>
+<body>
+<h1>Bus List</h1>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th> Id </th>
+        <th> Bus Name </th>
+        <th> Delete </th>
+        <th> Update </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="bus : ${busList}">
+        <td th:text="${bus.idBus}" ></td>
+        <td th:text="${bus.busName}"></td>
+        <td><a th:href="@{/buses/delete/{id}(id=${bus.idBus})}">Delete</a></td>
+<!--        <td><a th:href="@{/api/buses/delete?id=${bus.idBus}">Delete</a></td>-->
+        <td><a th:href="@{/buses/update/{id}(id=${bus.idBus})}">Update</a></td>
+    </tbody>
+</table>
+<br>
+<a href="/buses/addBus">Add bus</a>
+<br>
+<a href="/index">Home</a>
+</body>
+</html>

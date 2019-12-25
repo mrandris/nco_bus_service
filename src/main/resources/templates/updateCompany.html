@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update company</title>
+</head>
+<body>
+<h1>Update company</h1>
+
+<form th:action="@{/companies/update}" th:object="${company}" method="post">
+    <div class="form-group">
+        <label for="companyName" class="control-label">Company Name</label> <input
+            id="companyName" class="form-control" th:field="*{companyName}"/>
+    </div>
+    <div class="form-group">
+        <label for="description" class="control-label">Company Description</label> <input
+            id="description" class="form-control" th:field="*{description}"/>
+    </div>
+    <div class="form-group">
+        <label for="address" class="control-label">Address</label> <input
+            id="address" class="form-control" th:field="*{address}"/>
+    </div>
+    <div class="form-group">
+        <label for="maxUsers" class="control-label">Maximum guests</label> <input
+            id="maxUsers" class="form-control" th:field="*{maxUsers}"/>
+    </div>
+    <input id="idCompany" type="hidden" th:field="*{idCompany}"/>
+    <button type="submit" class="btn">Update</button>
+</form>
+
+</body>
+</html>

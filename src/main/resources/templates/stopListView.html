@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Stop List</title>
+</head>
+<body>
+<h1>Stop List</h1>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th> Id </th>
+        <th> Bus </th>
+        <th> Company </th>
+        <th> Rank </th>
+<!--        <th> Is bus present </th>-->
+<!--        <th> Delete </th>-->
+<!--        <th> Update </th>-->
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="stop : ${stopList}">
+        <td th:text="${stop.idStop}" ></td>
+        <td th:text="${stop.bus.busName}"></td>
+        <td th:text="${stop.company.companyName}"></td>
+        <td th:text="${stop.rank}"></td>
+<!--        <td th:text="${route.isPresent}"></td>-->
+<!--        <td><a th:href="@{/companies/delete/{id}(id=${company.idCompany})}">Delete</a></td>-->
+<!--        &lt;!&ndash;        <td><a th:href="@{/api/buses/delete?id=${bus.idBus}">Delete</a></td>&ndash;&gt;-->
+<!--        <td><a th:href="@{/routes/update/{id}(id=${route.idRoute})}">Update</a></td>-->
+    </tbody>
+</table>
+<br>
+<a href="/stops/addStop">Add Stop</a>
+<br>
+<a href="/index">Home</a>
+</body>
+</html>
