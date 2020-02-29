@@ -2,30 +2,458 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Create company</title>
+    <title>NCO Bus Service - Create company</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/layoutstyle/nco_stylesheet.css}">
 </head>
 <body>
-<h1>Create company</h1>
 
-<form th:action="@{/companies/addCompany}" th:object="${company}" method="post">
-    <div class="form-group">
-        <label for="companyName" class="control-label">FirstName</label> <input
-            id="companyName" class="form-control" th:field="*{companyName}"/>
+<!-- header -->
+<div th:insert="index :: header"></div>
+
+<!-- menu -->
+<div th:insert="index :: menuBar"></div>
+
+<!-- map & list -->
+<div id="mapAndList">
+    <div id="list">
+        <form th:action="@{/companies/addCompany}" th:object="${company}" method="post">
+            <table class="companies">
+                <tr>
+                    <th>Create new company</th>
+                </tr>
+            </table>
+            <br>
+            <table class="companies">
+                <tr>
+                    <td>Company name:</td>
+                    <td><input type="text" id="companyName" required="true" class="form" th:field="*{companyName}"></td>
+                </tr>
+                <tr>
+                    <td>Company description:</td>
+                    <td><textarea id="description" rows = "5" cols = "30" class="form" th:field="*{description}"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Maximum number of visitors:</td>
+                    <td><input type="text" id="maxUsers" pattern="[0-9]{1,10}" class="form" th:field="*{maxUsers}"></td>
+                </tr>
+                <tr>
+                    <td id="address">Address:</td>
+                    <td><input type="text" id="addInput" class="form" th:field="*{address}"/></td>
+                </tr>
+                <tr>
+                    <td>Upload logo:</td>
+                    <td>
+                        <form action="/action_page.php">
+                            <input type="file" name="pic" accept="image/*" class="form">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit" class="formBtn">Save company</button>
+        </form>
+
     </div>
-    <div class="form-group">
-        <label for="description" class="control-label">FirstName</label> <input
-            id="description" class="form-control" th:field="*{description}"/>
+    <div id="map">
+        <table id="grid">
+            <tr>
+                <td><button id="A1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="A20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="B1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="B20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="C1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="C20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="D1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="D20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="E1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="E20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="F1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="F20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="G1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="G20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="H1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="H20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="I1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="I20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="J1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="J20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="K1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="K20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="L1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="L20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="M1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="M20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="N1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="N20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="O1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="O20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+            <tr>
+                <td><button id="P1" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P2" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P3" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P4" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P5" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P6" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P7" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P8" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P9" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P10" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P11" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P12" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P13" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P14" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P15" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P16" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P17" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P18" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P19" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+                <td><button id="P20" class="mapButton" onclick="returnId(this.id);changeAddress()"></button></td>
+            </tr>
+        </table>
     </div>
-    <div class="form-group">
-        <label for="address" class="control-label">FirstName</label> <input
-            id="address" class="form-control" th:field="*{address}"/>
-    </div>
-    <div class="form-group">
-        <label for="maxUsers" class="control-label">FirstName</label> <input
-            id="maxUsers" class="form-control" th:field="*{maxUsers}"/>
-    </div>
-    <button type="submit" class="btn">Create</button>
-</form>
+
+    <script type="text/javascript">
+        // var y;
+        function returnId(clicked_id) {
+            // y = clicked_id;
+            document.getElementById("addInput").value = clicked_id;
+        }
+
+        // function changeAddress() {
+        //     var x = document.getElementById("addInput");
+        //     x.value =y;
+        //     // x.innerHTML = "<input type='text' id='address' class='form' th:field='*{address}' th:value='" + y +"'>";
+        //     //x.innerHTML= "Write: " + y;
+        // }
+
+    </script>
+
+</div>
+
+<!-- footer -->
+<div th:insert="index :: footer"></div>
+
+<!-- old Create company -->
+<!--<h1>Create company</h1>-->
+
+<!--<form th:action="@{/companies/addCompany}" th:object="${company}" method="post">-->
+<!--    <div class="form-group">-->
+<!--        <label for="companyName" class="control-label">Company name</label> <input-->
+<!--            id="companyName" class="form-control" th:field="*{companyName}"/>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label for="description" class="control-label">Company description</label> <input-->
+<!--            id="description" class="form-control" th:field="*{description}"/>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label for="address" class="control-label">Company address</label> <input-->
+<!--            id="address" class="form-control" th:field="*{address}"/>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label for="maxUsers" class="control-label">Maximum number of visitors</label> <input-->
+<!--            id="maxUsers" class="form-control" th:field="*{maxUsers}"/>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn">Create</button>-->
+<!--</form>-->
 
 </body>
 </html>

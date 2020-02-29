@@ -1,0 +1,424 @@
+body {
+  background-image: url("../images/background_copy_500px.jpg");
+  background-repeat: repeat;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+#header {
+	background-image: url("../images/banner_1000x320_px.png");
+	margin: auto;
+	width: 1000px;
+	height: 320px;
+}
+
+#searchButton {
+	float: right;
+	margin: 20px;
+}
+
+#menuBar {
+	height: 40px;
+	width: 1000px;
+	margin: auto;
+}
+
+#menuBar table {
+	color: white;
+	border-collapse: collapse;
+	margin: 20px;
+}
+
+#menu {
+	padding: 0;
+	width: 900px;
+}
+
+.menuButton {
+	display: table-cell;
+	border: none;
+	height: 38px;
+	width: 120px;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.menuButton a, a:visited {
+	color: inherit;
+}
+
+.menuButton:hover {
+	color:rgb(230,178,41);
+	background-color: white;
+	text-decoration: underline;
+}
+
+.menuButton:hover .dropdown-content {display: block;}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	width: 120px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.dropdown-content td {
+	float: none;
+	color:rgb(40,112,183);
+	padding: 10px 10px;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	margin: 4px;
+	/*border: 1px black solid;*/
+}
+
+.dropdown-content a:visited {
+	color:rgb(40,112,183);
+}
+
+.dropdown-content td:hover {
+  background-color: #ddd;
+}
+
+#mapAndList {
+	width: 1000px;
+	height: 450px;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#map {
+	background-image: url("../images/cluj.jpg");
+	float: left;
+	width: 600px;
+	height: 450px;
+	background-size: cover;
+}
+
+#grid {
+	table-layout: fixed;
+	width: 600px;
+	height: 450px;
+	border-collapse: collapse;
+	border: 1px dashed gray;
+	color: darkblue;
+	font-weight: bold;
+}
+
+#grid td {
+	text-align: center;
+	font-size: 8px;
+	width: 25px;
+	height: 25px;
+	border: 1px dashed gray;
+	color: darkblue;
+	font-weight: bold;
+}
+
+#grid td:hover {
+	background-color:rgb(40,112,183);
+	opacity: 0.3;
+}
+
+.mapButton {
+	width: 25px;
+	height: 18px;
+	font-size: 8px;
+	color: darkblue;
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+	border: none;
+	/*opacity: 0;*/
+	background-color:rgba(0, 0, 0, 0);"
+	cursor: pointer;
+}
+
+#list {
+	float: right;
+	margin-left: 20px;
+	padding-right: 30px;
+	width: 350px;
+	height: 450px;
+	overflow-y: auto;
+}
+
+.header {
+	height: 60px;
+}
+
+.description {
+	width: 350px;
+	height: 200px;
+	overflow-y: auto;
+	display: block;
+	position: relative;
+}
+
+.bordered {
+	color: white;
+	border: 1px solid white;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.bordered:hover {
+	background-color:rgb(230,178,41);
+	border: 1px solid rgb(230,178,41);
+}
+
+.routes th {
+	text-align: left;
+	color: white;
+	text-decoration: underline;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.stations {
+	width: 342px;
+	border-collapse: collapse;
+}
+
+.stations th {
+	height: 20px;
+	border-bottom: 3px dashed white;
+	text-align: center;
+}
+
+.stations td {
+	color: white;
+	height: 120px;
+	transform: rotate(90deg);
+	vertical-align: middle;
+}
+
+.stations div {
+	border: 1px solid white;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.stations td div:hover {
+	color:rgb(40,112,183);
+	background-color: white;
+}
+
+.companies {
+	width: 350px;
+	border-collapse: collapse;
+}
+
+.companies th {
+	width: 300px;
+	text-align: left;
+	color: white;
+	text-decoration: underline;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.companies td {
+	color: white;
+	height: 50px;
+	vertical-align: middle;
+	border-bottom: 3px solid white;
+	padding-left: 10px;
+}
+
+.companies td div a:hover {
+	color:rgb(40,112,183);
+	background-color: white;
+}
+
+.busline {
+	width: 350px;
+	border-collapse: collapse;
+}
+
+.busline th {
+	width: 300px;
+	text-align: left;
+	color: white;
+	text-decoration: underline;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.busline td {
+	color: white;
+	height: 50px;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+
+.buses {
+	width: 350px;
+	border-collapse: collapse;
+}
+
+.buses th {
+	text-align: left;
+	background-color: white;
+	color:rgb(40,112,183);
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.buses th input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.lbl {
+	display: block;
+	position: relative;
+	cursor: pointer;
+	text-align:center;
+}
+
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 10%;
+	height: 100%;
+	width: 80%;
+	background-color: white;
+	text-align:center;
+    border-radius: 5px;
+}
+
+.buses th input:checked ~ .checkmark {
+	background-color:rgb(230,178,41);
+}
+
+.buses td {
+	color: white;
+	height: 50px;
+	vertical-align: middle;
+	border-bottom: 3px solid white;
+	padding-left: 10px;
+}
+
+.st {
+	width: 100px;
+}
+
+.cmp {
+	text-align: center;
+}
+
+.cmp div a:hover {
+	color:rgb(40,112,183);
+	background-color: white;
+}
+
+#footerText {
+	margin: auto;
+	height: 50px;
+	width: 900px;
+	color: white;
+	border-collapse: collapse;
+}
+
+h4 {
+	color: white;
+	margin: 0px
+}
+
+#nco:visited {
+	color: white;
+}
+
+#nco:hover {
+	color:rgb(230,178,41);
+}
+
+#action {
+	margin: 20px;
+	float:left;
+	background-color: white;
+	height: 150px;
+	width: 150px;
+}
+
+#reaction {
+	margin:20px;
+	float:right;
+	background-color: gray;
+	height: 150px;
+	width: 150px;
+}
+
+#action:hover ~ #reaction {
+	color:red;
+}
+
+textarea {
+  resize: none;
+  overflow: auto;
+}
+
+.form {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	text-align:left;
+	padding-left: 3px;
+	padding-right: 3px;
+	margin: 5px;
+	width: 250px;
+	background-color: transparent;
+	color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+	
+}
+
+.formBtn {
+	font-size: 14px;
+	background-color: transparent;
+	margin: 5px;
+	width: 364px;
+	height: 28px;
+	color: white;
+	border: 1px solid white;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.formBtn:hover {
+	background-color:rgb(230,178,41);
+	border: 1px solid rgb(230,178,41);
+}
+
+.customFormBtn {
+	font-size: 10px;
+	background-color: transparent;
+	margin: 5px;
+	width: 50px;
+	height: 24px;
+	color: white;
+	border: 1px solid white;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.customFormBtn:hover {
+	background-color:rgb(230,178,41);
+	border: 1px solid rgb(230,178,41);
+}
+

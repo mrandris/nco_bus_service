@@ -2,19 +2,29 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Update bus</title>
+    <title>>NCO Bus Service - Update bus</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/layoutstyle/nco_stylesheet.css}">
 </head>
 <body>
+<!-- header -->
+<div th:insert="index :: header"></div>
+
+<!-- menu -->
+<div th:insert="index :: menuBar"></div>
+
 <h1>Update bus</h1>
 
 <form th:action="@{/buses/update}" th:object="${bus}" method="post">
     <div class="form-group">
-        <label for="busName" class="control-label">FirstName</label>
+        <label for="busName" class="control-label">Bus name</label>
         <input id="busName" class="form-control" th:field="*{busName}"/>
     </div>
     <input id="idBus" type="hidden" th:field="*{idBus}"/>
     <button type="submit" class="btn">Update</button>
 </form>
+
+<!-- footer -->
+<div th:insert="index :: footer"></div>
 
 </body>
 </html>

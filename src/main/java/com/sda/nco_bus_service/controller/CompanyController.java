@@ -26,12 +26,20 @@ public class CompanyController {
         return "companyListView";
     }
 
+    @RequestMapping(value="/{idCompany}")
+    public String findCompanyById(ModelMap model, @PathVariable("idCompany") Integer idCompany) {
+        Company company = companyService.findById(idCompany);
+        model.addAttribute("company", company);
+        System.out.println(company.getCompanyName());
+        return "companyView";
+    }
+
     @RequestMapping(value = "/delete/{idCompany}", method = RequestMethod.GET)
     public String deleteCompany(ModelMap model, @PathVariable("idCompany") Integer idCompany) {
         companyService.deleteCompany(idCompany);
         List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("companyList", companyList);
-        return "companyListView";
+        return "redirect:http://localhost:8080/companies/findAll";
     }
 
     @RequestMapping(value = "/addCompany", method = RequestMethod.GET)
@@ -60,6 +68,6 @@ public class CompanyController {
         companyService.updateCompany(company);
         List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("companyList", companyList);
-        return "companyListView";
+        return "redirect:http://localhost:8080/companies/findAll";
     }
 }

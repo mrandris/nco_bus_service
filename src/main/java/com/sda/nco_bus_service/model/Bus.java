@@ -11,7 +11,7 @@ public class Bus {
     private Integer idBus;
     @Column(name = "bus_name")
     private String busName;
-    @OneToMany(mappedBy = "bus")
+    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
     private List<Stop> stopList;
 
     public Integer getIdBus() {

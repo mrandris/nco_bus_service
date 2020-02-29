@@ -2,131 +2,37 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>NCO Bus service</title>
-    <link rel="stylesheet" type="text/css" href="layoutstyle/nco_stylesheet.css">
-<!--    <link rel="stylesheet" type="text/css" href="templates/nco_stylesheet.css">-->
+    <title>NCO Bus service - Bus</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/layoutstyle/nco_stylesheet.css}">
 </head>
-
+<body>
 <!-- header -->
-<div id="header" th:fragment="header">
-    <div id="searchButton">
-        <form method = "get" action = "https://google.com">
-            <input type = "text" name = "search" >
-            <input type = "submit" value = "Search">
-        </form>
-    </div>
-</div>
+<div th:insert="index :: header"></div>
 
 <!-- menu -->
-<div id="menuBar" th:fragment="menuBar">
-    <table>
-        <tr>
-            <th id="menu">
-                <div class="menuButton"><a href="/index">Home</a></div>
-                <div class="menuButton">
-                    <div class="menuButton"><a href="/companies/findAll">Companies</a></div>
-                    <div class="dropdown-content">
-                        <table style="margin: 0px">
-                            <tr th:each="company : ${companyList}">
-                                <td><a th:href="@{{id}(id=${company.idCompany})}" th:text="${company.CompanyName}"></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/companies/findAll">Show list</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/companies/addCompany">Add company</a></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="menuButton">
-                    <div class="menuButton"><a href="/buses/findAll">Buses</a></div>
-                    <div class="dropdown-content">
-                        <table style="margin: 0px">
-                            <tr th:each="bus : ${busList}">
-                                <td><a th:href="@{{id}(id=${bus.idBus})}" th:text="${bus.busName}"></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/buses/addBus">Add new route</a></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </th>
-            <th class="menuButton"><div><a href="signin.html">Sign in</a></div></th>
-        </tr>
-    </table>
-</div>
+<div th:insert="index :: menuBar"></div>
 
 <!-- map & list -->
 <div id="mapAndList">
     <div id="list">
-        <table class="routes">
+        <table class="buses">
             <tr>
-                <th>Bus 1</th>
+                <th colspan="2">
+                    <div th:text="${bus.busName}"></div>
+                </th>
             </tr>
-            <tr>
-                <td>
-                    <table class="stations">
-                        <tr>
-                            <th></th>
-                            <th>
-                                <img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" >
-                            </th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><div>Company 1</div></td>
-                            <td><div>Company 2</div></td>
-                            <td><div>Company 3</div></td>
-                        </tr>
-                    </table>
+            <tr th:each="station : ${bus.stopList}">
+                <td class="st">
+                    <a th:href="@{/companies/{id}(id=${station.getCompany().idCompany})}" th:text="${station.getCompany().getCompanyName()}"></a>
                 </td>
+                <td class="st"><div th:text="${station.getRank()}"></div></td>
             </tr>
-            <tr>
-                <th>Bus 2</th>
-            </tr>
-            <tr>
-                <td>
-                    <table class="stations">
-                        <tr>
-                            <th></th>
-                            <th>
-                                <img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" >
-                            </th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><div>Company 1</div></td>
-                            <td><div>Company 2</div></td>
-                            <td><div>Company 3</div></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <th>Bus 3</th>
-            </tr>
-            <tr>
-                <td>
-                    <table class="stations">
-                        <tr>
-                            <th></th>
-                            <th>
-                                <img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" >
-                            </th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><div>Company 1</div></td>
-                            <td><div>Company 2</div></td>
-                            <td><div>Company 3</div></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
         </table>
+        <br>
+        <div class="bordered"><a th:href="@{/buses/update/{id}(id=${bus.idBus})}">Update busline</a></div>
+        <br>
+        <div class="bordered"><a th:href="@{/buses/delete/{id}(id=${bus.idBus})}">Delete busline</a></div>
+
     </div>
     <div id="map">
         <table id="grid">
@@ -231,28 +137,7 @@
 </div>
 
 <!-- footer -->
-<div th:fragment="footer">
-    <table id="footerText">
-        <tr>
-            <th style="text-align: left">
-                <h4>
-                    <a id="nco" href="https://www.noapteacompaniilor.ro">www.noapteacompaniilor.ro</a>
-                </h4>
-            </th>
-            <th style="text-align: right">
-                <h4>Design by: mr_andris</h4>
-            </th>
-        </tr>
-    </table>
-</div>
-
-<!-- old index -->
-<!--<br>-->
-<!--<a href="/buses/findAll">Show buses</a>-->
-<!--<br>-->
-<!--<a href="/companies/findAll">Show companies</a>-->
-<!--<br>-->
-<!--<a href="/stops/findAll">Show stops</a>-->
+<div th:insert="index :: footer"></div>
 
 </body>
 </html>

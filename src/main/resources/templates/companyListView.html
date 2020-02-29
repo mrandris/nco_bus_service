@@ -2,39 +2,177 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Company List</title>
+    <title>NCO Bus Service - Companies</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/layoutstyle/nco_stylesheet.css}">
 </head>
 <body>
-<h1>Company List</h1>
-<br>
-<table>
-    <thead>
-    <tr>
-        <th> Id </th>
-        <th> Company Name </th>
-        <th> Description </th>
-        <th> Address </th>
-        <th> Max guests </th>
-        <th> Delete </th>
-        <th> Update </th>
-    </tr>
-    </thead>
+<!-- header -->
+<div th:insert="index :: header"></div>
 
-    <tbody>
-    <tr th:each="company : ${companyList}">
-        <td th:text="${company.idCompany}" ></td>
-        <td th:text="${company.CompanyName}"></td>
-        <td th:text="${company.description}"></td>
-        <td th:text="${company.address}"></td>
-        <td th:text="${company.maxUsers}"></td>
-        <td><a th:href="@{/companies/delete/{id}(id=${company.idCompany})}">Delete</a></td>
-        <!--        <td><a th:href="@{/api/buses/delete?id=${bus.idBus}">Delete</a></td>-->
-        <td><a th:href="@{/companies/update/{id}(id=${company.idCompany})}">Update</a></td>
-    </tbody>
-</table>
-<br>
-<a href="/companies/addCompany">Add company</a>
-<br>
-<a href="/index">Home</a>
+<!-- menu -->
+<div th:insert="index :: menuBar"></div>
+
+<!-- map & list -->
+<div id="mapAndList">
+<!-- map -->
+    <div id="map">
+        <table id="grid">
+            <tr>
+                <td id="A1"></td><td id="A2"></td><td id="A3"></td><td id="A4"></td><td id="A5"></td>
+                <td id="A6"></td><td id="A7"></td><td id="A8"></td><td id="A9"></td><td id="A10"></td>
+                <td id="A11"></td><td id="A12"></td><td id="A13"></td><td id="A14"></td><td id="A15"></td>
+                <td id="A16"></td><td id="A17"></td><td id="A18"></td><td id="A19"></td><td id="A20"></td>
+            </tr>
+            <tr>
+                <td id="B1"></td><td id="B2"></td><td id="B3"></td><td id="B4"></td><td id="B5"></td>
+                <td id="B6"></td><td id="B7"></td><td id="B8"></td><td id="B9"></td><td id="B10"></td>
+                <td id="B11"></td><td id="B12"></td><td id="B13"></td><td id="B14"></td><td id="B15"></td>
+                <td id="B16"></td><td id="B17"></td><td id="B18"></td><td id="B19"></td><td id="B20"></td>
+            </tr>
+            <tr>
+                <td id="C1"></td><td id="C2"></td><td id="C3"></td><td id="C4"></td><td id="C5"></td>
+                <td id="C6"></td><td id="C7"></td><td id="C8"></td><td id="C9"></td><td id="C10"></td>
+                <td id="C11"></td><td id="C12"></td><td id="C13"></td><td id="C14"></td><td id="C15"></td>
+                <td id="C16"></td><td id="C17"></td><td id="C18"></td><td id="C19"></td><td id="C20"></td>
+            </tr>
+            <tr>
+                <td id="D1"></td><td id="D2"></td><td id="D3"></td><td id="D4"></td><td id="D5"></td>
+                <td id="D6"></td><td id="D7"></td><td id="D8"></td><td id="D9"></td><td id="D10"></td>
+                <td id="D11"></td><td id="D12"></td><td id="D13"></td><td id="D14"></td><td id="D15"></td>
+                <td id="D16"></td><td id="D17"></td><td id="D18"></td><td id="D19"></td><td id="D20"></td>
+            </tr>
+            <tr>
+                <td id="E1"></td><td id="E2"></td><td id="E3"></td><td id="E4"></td><td id="E5"></td>
+                <td id="E6"></td><td id="E7"></td><td id="E8"></td><td id="E9"></td><td id="E10"></td>
+                <td id="E11"></td><td id="E12"></td><td id="E13"></td><td id="E14"></td><td id="E15"></td>
+                <td id="E16"></td><td id="E17"></td><td id="E18"></td><td id="E19"></td><td id="E20"></td>
+            </tr>
+            <tr>
+                <td id="F1"></td><td id="F2"></td><td id="F3"></td><td id="F4"></td><td id="F5"></td>
+                <td id="F6"></td><td id="F7"></td><td id="F8"></td><td id="F9"></td><td id="F10"></td>
+                <td id="F11"></td><td id="F12"></td><td id="F13"></td><td id="F14"></td><td id="F15"></td>
+                <td id="F16"></td><td id="F17"></td><td id="F18"></td><td id="F19"></td><td id="F20"></td>
+            </tr>
+            <tr>
+                <td id="G1"></td><td id="G2"></td><td id="G3"></td><td id="G4"></td><td id="G5"></td>
+                <td id="G6"></td><td id="G7"></td><td id="G8"></td><td id="G9"></td><td id="G10"></td>
+                <td id="G11"></td><td id="G12"></td><td id="G13"></td><td id="G14"></td><td id="G15"></td>
+                <td id="G16"></td><td id="G17"></td><td id="G18"></td><td id="G19"></td><td id="G20"></td>
+            </tr>
+            <tr>
+                <td id="H1"></td><td id="H2"></td><td id="H3"></td><td id="H4"></td><td id="H5"></td>
+                <td id="H6"></td><td id="H7"></td><td id="H8"></td><td id="H9"></td><td id="H10"></td>
+                <td id="H11"></td><td id="H12"></td><td id="H13"></td><td id="H14"></td><td id="H15"></td>
+                <td id="H16"></td><td id="H17"></td><td id="H18"></td><td id="H19"></td><td id="H20"></td>
+            </tr>
+            <tr>
+                <td id="I1"></td><td id="I2"></td><td id="I3"></td><td id="I4"></td><td id="I5"></td>
+                <td id="I6"></td><td id="I7"></td><td id="I8"></td><td id="I9"></td><td id="I10"></td>
+                <td id="I11"></td><td id="I12"></td><td id="I13"></td><td id="I14"></td><td id="I15"></td>
+                <td id="I16"></td><td id="I17"></td><td id="I18"></td><td id="I19"></td><td id="I20"></td>
+            </tr>
+            <tr>
+                <td id="J1"></td><td id="J2"></td><td id="J3"></td><td id="J4"></td><td id="J5"></td>
+                <td id="J6"></td><td id="J7"></td><td id="J8"></td><td id="J9"></td><td id="J10"></td>
+                <td id="J11"></td><td id="J12"></td><td id="J13"></td><td id="J14"></td><td id="J15"></td>
+                <td id="J16"></td><td id="J17"></td><td id="J18"></td><td id="J19"></td><td id="J20"></td>
+            </tr>
+            <tr>
+                <td id="K1"></td><td id="K2"></td><td id="K3"></td><td id="K4"></td><td id="K5"></td>
+                <td id="K6"></td><td id="K7"></td><td id="K8"></td><td id="K9"></td><td id="K10"></td>
+                <td id="K11"></td><td id="K12"></td><td id="K13"></td><td id="K14"></td><td id="K15"></td>
+                <td id="K16"></td><td id="K17"></td><td id="K18"></td><td id="K19"></td><td id="K20"></td>
+            </tr>
+            <tr>
+                <td id="L1"></td><td id="L2"></td><td id="L3"></td><td id="L4"></td><td id="L5"></td>
+                <td id="L6"></td><td id="L7"></td><td id="L8"></td><td id="L9"></td><td id="L10"></td>
+                <td id="L11"></td><td id="L12"></td><td id="L13"></td><td id="L14"></td><td id="L15"></td>
+                <td id="L16"></td><td id="L17"></td><td id="L18"></td><td id="L19"></td><td id="L20"></td>
+            </tr>
+            <tr>
+                <td id="M1"></td><td id="M2"></td><td id="M3"></td><td id="M4"></td><td id="M5"></td>
+                <td id="M6"></td><td id="M7"></td><td id="M8"></td><td id="M9"></td><td id="M10"></td>
+                <td id="M11"></td><td id="M12"></td><td id="M13"></td><td id="M14"></td><td id="M15"></td>
+                <td id="M16"></td><td id="M17"></td><td id="M18"></td><td id="M19"></td><td id="M20"></td>
+            </tr>
+            <tr>
+                <td id="N1"></td><td id="N2"></td><td id="N3"></td><td id="N4"></td><td id="N5"></td>
+                <td id="N6"></td><td id="N7"></td><td id="N8"></td><td id="N9"></td><td id="N10"></td>
+                <td id="N11"></td><td id="N12"></td><td id="N13"></td><td id="N14"></td><td id="N15"></td>
+                <td id="N16"></td><td id="N17"></td><td id="N18"></td><td id="N19"></td><td id="N20"></td>
+            </tr>
+            <tr>
+                <td id="O1"></td><td id="O2"></td><td id="O3"></td><td id="O4"></td><td id="O5"></td>
+                <td id="O6"></td><td id="O7"></td><td id="O8"></td><td id="O9"></td><td id="O10"></td>
+                <td id="O11"></td><td id="O12"></td><td id="O13"></td><td id="O14"></td><td id="O15"></td>
+                <td id="O16"></td><td id="O17"></td><td id="O18"></td><td id="O19"></td><td id="O20"></td>
+            </tr>
+            <tr>
+                <td id="P1"></td><td id="P2"></td><td id="P3"></td><td id="P4"></td><td id="P5"></td>
+                <td id="P6"></td><td id="P7"></td><td id="P8"></td><td id="P9"></td><td id="P10"></td>
+                <td id="P11"></td><td id="P12"></td><td id="P13"></td><td id="P14"></td><td id="P15"></td>
+                <td id="P16"></td><td id="P17"></td><td id="P18"></td><td id="P19"></td><td id="P20"></td>
+            </tr>
+        </table>
+    </div>
+<!-- list -->
+    <div id="list">
+        <table class="companies">
+            <tr>
+                <th>Company list</th>
+            </tr>
+            <tr th:each="company : ${companyList}">
+                <td><div><a th:href="@{{id}(id=${company.idCompany})}" th:text="${company.CompanyName}"></a></div></td>
+                <td><div th:text="${company.CompanyName}+' logo'"></div></td> <!-- logo??? -->
+                <script type="text/javascript" th:inline="javascript">
+                    var x = /*[[${company.getAddress()}]]*/ "test";
+                    console.log(x);
+                    document.getElementById(x).innerHTML = /*[[${company.companyName}]]*/ "company";
+                </script>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- footer -->
+<div th:insert="index :: footer"></div>
+
+<div onmouseover=""> </div>
+
+<!-- old company list view -->
+
+<!--<h1>Company List</h1>-->
+<!--<br>-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th> Id </th>-->
+<!--        <th> Company Name </th>-->
+<!--        <th> Description </th>-->
+<!--        <th> Address </th>-->
+<!--        <th> Max guests </th>-->
+<!--        <th> Delete </th>-->
+<!--        <th> Update </th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+
+<!--    <tbody>-->
+<!--    <tr th:each="company : ${companyList}">-->
+<!--        <td th:text="${company.idCompany}" ></td>-->
+<!--        <td th:text="${company.CompanyName}"></td>-->
+<!--        <td th:text="${company.description}"></td>-->
+<!--        <td th:text="${company.address}"></td>-->
+<!--        <td th:text="${company.maxUsers}"></td>-->
+<!--        <td><a th:href="@{/companies/delete/{id}(id=${company.idCompany})}">Delete</a></td>-->
+<!--        &lt;!&ndash;        <td><a th:href="@{/api/buses/delete?id=${bus.idBus}">Delete</a></td>&ndash;&gt;-->
+<!--        <td><a th:href="@{/companies/update/{id}(id=${company.idCompany})}">Update</a></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<br>-->
+<!--<a href="/companies/addCompany">Add company</a>-->
+<!--<br>-->
+<!--<a href="/index">Home</a>-->
+
 </body>
 </html>

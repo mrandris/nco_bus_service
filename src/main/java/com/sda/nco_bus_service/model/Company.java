@@ -20,7 +20,7 @@ public class Company {
 //    @Column(name = "logo")
 //    private File logo;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Stop> stopList;
 
     public Integer getIdCompany() {
