@@ -228,6 +228,15 @@
             </tr>
         </table>
     </div>
+
+    <!-- map script -->
+    <script type="text/javascript" th:inline="javascript">
+        /*[# th:each="company : ${companyList}"]*/
+        var x = /*[[${company.getAddress()}]]*/ "test";
+        console.log(x);
+        document.getElementById(x).innerHTML = /*[[${company.companyName}]]*/ "company";
+        /*[/]*/
+    </script>
 </div>
 
 <!-- footer -->
@@ -245,14 +254,6 @@
         </tr>
     </table>
 </div>
-
-<!-- old index -->
-<!--<br>-->
-<!--<a href="/buses/findAll">Show buses</a>-->
-<!--<br>-->
-<!--<a href="/companies/findAll">Show companies</a>-->
-<!--<br>-->
-<!--<a href="/stops/findAll">Show stops</a>-->
 
 </body>
 </html>

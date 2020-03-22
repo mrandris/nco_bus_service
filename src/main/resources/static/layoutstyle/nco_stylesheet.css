@@ -405,7 +405,7 @@ textarea {
 	border: 1px solid rgb(230,178,41);
 }
 
-.customFormBtn {
+#customFormBtn {
 	font-size: 10px;
 	background-color: transparent;
 	margin: 5px;
@@ -417,7 +417,7 @@ textarea {
 	border-radius: 5px;
 }
 
-.customFormBtn:hover {
+#customFormBtn:hover {
 	background-color:rgb(230,178,41);
 	border: 1px solid rgb(230,178,41);
 }

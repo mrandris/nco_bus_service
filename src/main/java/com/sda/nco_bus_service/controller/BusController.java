@@ -23,7 +23,9 @@ public class BusController {
     @RequestMapping("/findAll")
     public String findAllBuses(ModelMap model) {
         List<Bus> busList = busService.findAllBuses();
+        List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("busList", busList);
+        model.addAttribute("companyList", companyList);
         return "busListView";
     }
 

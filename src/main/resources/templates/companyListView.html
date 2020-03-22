@@ -131,48 +131,18 @@
                 </script>
             </tr>
         </table>
+        <br>
+        <div>
+            <form action="/companies/addCompany">
+                <button type="submit" class="formBtn">Add company</button>
+            </form>
+        </div>
+
     </div>
 </div>
 
 <!-- footer -->
 <div th:insert="index :: footer"></div>
-
-<div onmouseover=""> </div>
-
-<!-- old company list view -->
-
-<!--<h1>Company List</h1>-->
-<!--<br>-->
-<!--<table>-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th> Id </th>-->
-<!--        <th> Company Name </th>-->
-<!--        <th> Description </th>-->
-<!--        <th> Address </th>-->
-<!--        <th> Max guests </th>-->
-<!--        <th> Delete </th>-->
-<!--        <th> Update </th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-
-<!--    <tbody>-->
-<!--    <tr th:each="company : ${companyList}">-->
-<!--        <td th:text="${company.idCompany}" ></td>-->
-<!--        <td th:text="${company.CompanyName}"></td>-->
-<!--        <td th:text="${company.description}"></td>-->
-<!--        <td th:text="${company.address}"></td>-->
-<!--        <td th:text="${company.maxUsers}"></td>-->
-<!--        <td><a th:href="@{/companies/delete/{id}(id=${company.idCompany})}">Delete</a></td>-->
-<!--        &lt;!&ndash;        <td><a th:href="@{/api/buses/delete?id=${bus.idBus}">Delete</a></td>&ndash;&gt;-->
-<!--        <td><a th:href="@{/companies/update/{id}(id=${company.idCompany})}">Update</a></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
-<!--<br>-->
-<!--<a href="/companies/addCompany">Add company</a>-->
-<!--<br>-->
-<!--<a href="/index">Home</a>-->
 
 </body>
 </html>

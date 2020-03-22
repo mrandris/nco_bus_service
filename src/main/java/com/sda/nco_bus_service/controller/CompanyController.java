@@ -1,6 +1,8 @@
 package com.sda.nco_bus_service.controller;
 
+import com.sda.nco_bus_service.model.Bus;
 import com.sda.nco_bus_service.model.Company;
+import com.sda.nco_bus_service.service.BusService;
 import com.sda.nco_bus_service.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,10 +20,14 @@ import java.util.List;
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private BusService busService;
 
     @RequestMapping("/findAll")
     public String findAllCompanies(ModelMap model) {
+        List<Bus> busList = busService.findAllBuses();
         List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("busList", busList);
         model.addAttribute("companyList", companyList);
         return "companyListView";
     }
@@ -31,6 +37,9 @@ public class CompanyController {
         Company company = companyService.findById(idCompany);
         model.addAttribute("company", company);
         System.out.println(company.getCompanyName());
+        // most tettem be
+        List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("companyList", companyList);
         return "companyView";
     }
 
@@ -45,6 +54,9 @@ public class CompanyController {
     @RequestMapping(value = "/addCompany", method = RequestMethod.GET)
     public String addCompany(ModelMap model) {
         model.addAttribute("company", new Company());
+        // most tettem be
+        List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("companyList", companyList);
         return "addCompany";
     }
 
@@ -60,6 +72,9 @@ public class CompanyController {
     public String updateCompanyView(ModelMap model,  @PathVariable("idCompany") Integer idCompany) {
         Company temp = companyService.findById(idCompany);
         model.addAttribute("company", temp);
+        // most tettem be
+        List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("companyList", companyList);
         return "updateCompany";
     }
 

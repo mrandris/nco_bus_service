@@ -33,6 +33,8 @@
         <div class="bordered"><a th:href="@{/companies/delete/{id}(id=${company.idCompany})}">Delete company</a></div>
 
     </div>
+
+    <!-- map -->
     <div id="map">
         <table id="grid">
             <tr>
@@ -133,37 +135,19 @@
             </tr>
         </table>
     </div>
+
+    <!-- map script -->
+    <script type="text/javascript" th:inline="javascript">
+        /*[# th:each="company : ${companyList}"]*/
+        var x = /*[[${company.getAddress()}]]*/ "test";
+        console.log(x);
+        document.getElementById(x).innerHTML = /*[[${company.companyName}]]*/ "company";
+        /*[/]*/
+    </script>
 </div>
 
 <!-- footer -->
 <div th:insert="index :: footer"></div>
-
-<table>
-    <thead>
-    <tr>
-        <th> Id </th>
-        <th> Company Name </th>
-        <th> Description </th>
-        <th> Address </th>
-        <th> Max guests </th>
-        <th> Delete </th>
-        <th> Update </th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr>
-        <td th:text="${company.idCompany}" ></td>
-        <td th:text="${company.CompanyName}"></td>
-        <td th:text="${company.description}"></td>
-        <td th:text="${company.address}"></td>
-        <td th:text="${company.maxUsers}"></td>
-        <td><a th:href="@{/companies/delete/{id}(id=${company.idCompany})}">Delete</a></td>
-        <!--        <td><a th:href="@{/api/buses/delete?id=${bus.idBus}">Delete</a></td>-->
-        <td><a th:href="@{/companies/update/{id}(id=${company.idCompany})}">Update</a></td>
-    </tr>
-    </tbody>
-</table>
 
 </body>
 </html>

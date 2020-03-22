@@ -34,6 +34,8 @@
         <div class="bordered"><a th:href="@{/buses/delete/{id}(id=${bus.idBus})}">Delete busline</a></div>
 
     </div>
+
+    <!-- map -->
     <div id="map">
         <table id="grid">
             <tr>
@@ -134,6 +136,15 @@
             </tr>
         </table>
     </div>
+
+    <!-- map script -->
+    <script type="text/javascript" th:inline="javascript">
+        /*[# th:each="company : ${companyList}"]*/
+        var x = /*[[${company.getAddress()}]]*/ "test";
+        console.log(x);
+        document.getElementById(x).innerHTML = /*[[${company.companyName}]]*/ "company";
+        /*[/]*/
+    </script>
 </div>
 
 <!-- footer -->

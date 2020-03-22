@@ -8,6 +8,7 @@ public class Stop {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_stop")
     private Integer idStop;
+
     @ManyToOne
     @JoinColumn(name="id_bus", nullable=false)
     private Bus bus;
@@ -18,6 +19,7 @@ public class Stop {
 
     @Column(name = "rank")
     private Integer rank;
+
     @Column(name = "id_bus_present")
     private Boolean isPresent;
 

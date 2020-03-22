@@ -9,8 +9,10 @@ public class Bus {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_bus")
     private Integer idBus;
+
     @Column(name = "bus_name")
     private String busName;
+
     @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
     private List<Stop> stopList;
 

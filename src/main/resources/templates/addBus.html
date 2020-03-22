@@ -15,6 +15,7 @@
 
 <!-- map & list -->
 <div id="mapAndList">
+
 <!-- map -->
     <div id="map">
         <table id="grid">
@@ -372,6 +373,7 @@
             </tr>
         </table>
     </div>
+
 <!-- map script -->
     <script type="text/javascript" th:inline="javascript">
         /*[# th:each="company : ${companyList}"]*/
@@ -398,27 +400,17 @@
                 <tr>
                     <th colspan="4">Station list:</th>
                 </tr>
-                <tr>
-                    <td id="1">1</td>
-                    <td id="address">Click on the map to choose company</td>
-                    <td><button type="button" class="customFormBtn" onclick="addNewLine(this);fff()">Add</button></td>
-                    <td><button type="button" class="customFormBtn" onclick="deleteLine(this)">Remove</button></td>
+
+                <tr th:each="station : ${bus.stopList}">
+                    <td th:text="${station.getCompany().getCompanyName()}"></td>
+                    <td><button type="button" onclick="moveUp(this)">↑</button></td>
+                    <td><button type="button" onclick="moveDown(this)">↓</button></td>
+                    <td><button type="button" onclick="deleteLine(this)">Delete</button></td>
                 </tr>
 
-                <!--                <tr th:each="station : ${bus.stopList}">-->
-                <!--                    <td class="st"><div th:text="${station.getRank()}"></div></td>-->
-                <!--                    <td class="st">-->
-                <!--                        <div th:text="${station.getCompany().getCompanyName() + }">-->
-                <!--                            &lt;!&ndash; link not showing!!! &ndash;&gt;-->
-                <!--                            <a th:href="@{{id}(id=${company.idCompany})}"></a>-->
-                <!--                        </div>-->
-                <!--                    </td>-->
-                <!--                    <td><button type="button" class="customFormBtn" onclick="addNewLine(this);fff()">Add</button></td>-->
-                <!--                    <td><button type="button" class="customFormBtn" onclick="deleteLine(this)">Remove</button></td>-->
-                <!--                </tr>-->
                 <tr>
-                    <td colspan="2"><button type="button" class="customFormBtn" onclick="addNewLine(this);fff()">Add station</button></td>
-                    <td colspan="2"><button type="button" class="customFormBtn" onclick="deleteLine(this)">Remove station</button></td>
+                    <td id="address" colspan="4">Click on the map to choose company</td>
+                    <td><button type="button" id="customFormBtn" onclick="addLine(this);changeText()">Add</button></td>
                 </tr>
 
             </table>
@@ -428,51 +420,86 @@
         </form>
 
         <script>
-            function addNewLine(n) {
-                var tr = n.parentNode.parentNode.cloneNode(true);
-                document.getElementById('stList').appendChild(tr);
-            }
-
-            var id;
-            function fff() {
-                id = document.getElementById("1").innerHTML;
-            }
-
-            function deleteLine(n) {
-            }
-        </script>
-    </div>
-
-    <script  type="text/javascript" th:inline="javascript">
         var y;
         function returnId(clicked_id) {
-            y = clicked_id;
+            <!-- instead of the id it returns the company name situated at the clicked address -->
+            y = document.getElementById(clicked_id).innerHTML;
         }
-
-
 
         function changeAddress() {
             var x = document.getElementById("address");
-            x.innerHTML = "Chosen stop: " + y;
+            x.innerHTML = y;
         }
 
-    </script>
+		function changeText() {
+			var x = document.getElementById("address");
+			x.innerHTML = "Click on the map to choose company";
+		}
+
+		function addLine(x) {
+			var index = x.parentNode.parentNode.rowIndex+1;
+			var table = document.getElementById("stList");
+			var row = table.insertRow(index-1);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+
+			table.rows[index].cells[0].colSpan = 3;
+			cell1.innerHTML = x.parentNode.parentNode.cells[0].innerHTML;
+<!--			cell1.innerHTML = "<input type='text' id='company' required='true' class='form' th:field='*{company}'>";-->
+
+			cell2.innerHTML = "<button type='button' id='customFormBtn' onclick='moveUp(this)'>↑</button>";
+			cell3.innerHTML = "<button type='button' id='customFormBtn' onclick='moveDown(this)'>↓</button>";
+			cell4.innerHTML = "<button type='button' id='customFormBtn' onclick='deleteLine(this)'>Delete</button>";
+			printTable();
+		}
+
+		function deleteLine(x) {
+			var index = x.parentNode.parentNode.rowIndex;
+			document.getElementById("stList").deleteRow(index);
+			printTable();
+		}
+
+		function moveUp(x) {
+			var index = x.parentNode.parentNode.rowIndex;
+			var content1 = x.parentNode.parentNode.cells[0].innerHTML;
+			var content2 = document.getElementById("stList").rows[index-1].cells[0].innerHTML;
+
+			document.getElementById("stList").rows[index-1].cells[0].innerHTML = content1;
+			document.getElementById("stList").rows[index].cells[0].innerHTML = content2;
+			printTable();
+		}
+
+		function moveDown(x) {
+			var index = x.parentNode.parentNode.rowIndex;
+			var content1 = x.parentNode.parentNode.cells[0].innerHTML;
+			var content2 = document.getElementById("stList").rows[index+1].cells[0].innerHTML;
+
+			document.getElementById("stList").rows[index+1].cells[0].innerHTML = content1;
+			document.getElementById("stList").rows[index].cells[0].innerHTML = content2;
+			printTable();
+		}
+
+        <!-- get company name from thymeleaf and print on console -->
+        <!-- set function to store th:values and save stops for busline -->
+
+        function printTable() {
+            console.log();
+		    var table = document.getElementById("stList");
+		    for (var i = 1; i<table.rows.length-1; i++) {
+		        row = table.rows[i];
+		        console.log(row.cells[0].innerHTML + " / Rank: " + i);
+		    }
+		}
+
+		</script>
+    </div>
 
 </div>
 
 <!-- footer -->
 <div th:insert="index :: footer"></div>
-
-<!-- old Create bus -->
-
-<!--<h1>Create bus</h1>-->
-<!--<form th:action="@{/buses/addBus}" th:object="${bus}" method="post">-->
-<!--    <div class="form-group">-->
-<!--    <label for="busName" class="control-label">Bus name</label> <input-->
-<!--        id="busName" class="form-control" th:field="*{busName}"/>-->
-<!--    </div>-->
-<!--    <button type="submit" class="btn">Create</button>-->
-<!--</form>-->
 
 </body>
 </html>
