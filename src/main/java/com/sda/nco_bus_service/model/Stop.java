@@ -17,11 +17,11 @@ public class Stop {
     @JoinColumn(name="id_comp", nullable=false)
     private Company company;
 
-    @Column(name = "rank")
-    private Integer rank;
+    @Column(name = "stop_rank")
+    private Integer stopRank;
 
-    @Column(name = "id_bus_present")
-    private Boolean isPresent;
+//    @Column(name = "id_bus_present")
+//    private Boolean isPresent;
 
     public Integer getIdStop() {
         return idStop;
@@ -47,19 +47,19 @@ public class Stop {
         this.company = company;
     }
 
-    public Integer getRank() {
-        return rank;
+    public Integer getStopRank() {
+        return stopRank;
     }
 
-    public void setRank(Integer rank) {
-        this.rank = rank;
+    public void setStopRank(Integer stopRank) {
+        this.stopRank = stopRank;
     }
 
-    public Boolean getPresent() {
-        return isPresent;
-    }
-
-    public void setPresent(Boolean present) {
-        isPresent = present;
-    }
+//    public Boolean getPresent() {
+//        return isPresent;
+//    }
+//
+//    public void setPresent(Boolean present) {
+//        isPresent = present;
+//    }
 }

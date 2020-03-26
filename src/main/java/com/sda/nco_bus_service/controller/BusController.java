@@ -2,8 +2,10 @@ package com.sda.nco_bus_service.controller;
 
 import com.sda.nco_bus_service.model.Bus;
 import com.sda.nco_bus_service.model.Company;
+import com.sda.nco_bus_service.model.Stop;
 import com.sda.nco_bus_service.service.BusService;
 import com.sda.nco_bus_service.service.CompanyService;
+import com.sda.nco_bus_service.service.StopService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class BusController {
     private BusService busService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private StopService stopService;
 
     @RequestMapping("/findAll")
     public String findAllBuses(ModelMap model) {
@@ -42,7 +46,7 @@ public class BusController {
         List<Bus> busList = busService.findAllBuses();
         model.addAttribute("busList", busList);
         //return redirect ???
-        return "redirect:/bus/findAll";
+        return "redirect:http://localhost:8080/buses/findAll";
     }
 
 //    @RequestMapping(value = "/delete/{idCompany}", method = RequestMethod.GET)
@@ -54,12 +58,39 @@ public class BusController {
 //    }
 
 
+    // new add bus! only name and ID
+//    @RequestMapping(value = "/addBus", method = RequestMethod.POST)
+//    public String addBus(@ModelAttribute(name = "bus") Bus bus, ModelMap model) {
+//        busService.saveBus(bus);
+//        List<Company> companyList = companyService.findAllCompanies();
+//        model.addAttribute("companyList", companyList);
+//        return "redirect:/buses/addBus";
+//    }
+
+
     @RequestMapping(value = "/addBus", method = RequestMethod.GET)
     public String addBus(ModelMap model) {
         List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("bus", new Bus());
         model.addAttribute("companyList", companyList);
+
+        // newly added - something fishy here
+        model.addAttribute("stop", new Stop());
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
         return "addBus";
+    }
+
+    @RequestMapping(value = "/addStop", method = RequestMethod.POST)
+    public String addStop(@ModelAttribute(name = "stop") Stop stop, ModelMap model) {
+        stopService.saveStop(stop);
+        List<Stop> stopList = stopService.findAllStops();
+        model.addAttribute("stopList", stopList);
+        List<Company> companyList = companyService.findAllCompanies();
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
+        model.addAttribute("companyList", companyList);
+        return "redirect:/buses/addBus";
     }
 
     @RequestMapping(value = "/addBus", method = RequestMethod.POST)
@@ -82,6 +113,6 @@ public class BusController {
         busService.updateBus(bus);
         List<Bus> busList = busService.findAllBuses();
         model.addAttribute("busList", busList);
-        return "redirect:/bus/findAll";
+        return "redirect:/buses/findAll";
     }
 }

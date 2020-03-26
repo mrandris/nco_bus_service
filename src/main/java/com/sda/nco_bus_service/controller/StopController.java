@@ -1,5 +1,7 @@
 package com.sda.nco_bus_service.controller;
 
+import com.sda.nco_bus_service.model.Bus;
+import com.sda.nco_bus_service.model.Company;
 import com.sda.nco_bus_service.model.Stop;
 import com.sda.nco_bus_service.service.BusService;
 import com.sda.nco_bus_service.service.CompanyService;
@@ -31,19 +33,27 @@ public class StopController {
     }
 
     @RequestMapping(value = "/addStop", method = RequestMethod.GET)
-    public String addBus(ModelMap model) {
+    public String addStop(ModelMap model) {
         model.addAttribute("stop", new Stop());
-        model.addAttribute("busList", busService.findAllBuses());
-        model.addAttribute("companyList", companyService.findAllCompanies());
+        List<Company> companyList = companyService.findAllCompanies();
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
+        model.addAttribute("companyList", companyList);
+        System.out.println("Working1");
 
         return "addStop";
     }
 
     @RequestMapping(value = "/addStop", method = RequestMethod.POST)
     public String create(@ModelAttribute(name = "stop") Stop stop, ModelMap model) {
-        stopService.save(stop);
+        System.out.println("Bus: " + stop.getBus().getIdBus() + " Company: " + stop.getCompany().getIdCompany());
+        System.out.println("ID: " + stop.getIdStop() + " Rank: " + stop.getStopRank());
+        stopService.saveStop(stop);
+        System.out.println("Working3");
         List<Stop> stopList = stopService.findAllStops();
+        System.out.println("Working4");
         model.addAttribute("stopList", stopList);
+        System.out.println("Working5");
         return "stopListView";
     }
 }

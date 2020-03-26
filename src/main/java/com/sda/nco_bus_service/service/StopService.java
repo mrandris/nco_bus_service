@@ -16,7 +16,7 @@ public class StopService {
         return stopRepository.findAll();
     }
 
-    public Stop save(Stop stop) {
+    public Stop saveStop(Stop stop) {
         return stopRepository.save(stop);
     }
 }
