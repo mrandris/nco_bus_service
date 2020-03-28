@@ -385,82 +385,69 @@
 
 <!-- list -->
     <div id="list">
-
+<!-- busline header -->
         <table class="busline">
             <tr>
                 <th colspan="2">Create new busline</th>
             </tr>
         </table>
-
         <br>
 
-        <form th:action="@{/buses/addStop}" th:object="${stop}" method="post">
-<!--            <div class="form-group">-->
-<!--                <label class="control-label">Bus name</label>-->
-<!--                <select th:field="*{bus.idBus}">-->
-<!--                    <option th:each="b : ${busList}" th:value="${b.idBus}" th:text="${b.busName}"></option>-->
-<!--                </select>-->
-<!--            </div>-->
-            <div class="form-group">
-<!--                <label class="control-label">Company</label>-->
-<!--                <span th:each="c : ${companyList}" th:if="${c.address == 'A1'}" th:value="${c.idCompany}" th:text="${c.companyName}"></span>-->
-<!--                <input th:field="*{company.idCompany}" th:each="c : ${companyList}" th:if="${c.address == 'A1'}" th:value="${c.idCompany}"/>-->
-
-                <select th:field="*{company.idCompany}">
-                    <option th:each="c : ${companyList}" th:if="${c.address == 'A1'}" th:value="${c.idCompany}" th:text="${c.companyName}"></option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="stopRank" class="control-label">Rank (please insert a number)</label> <input
-                    id="stopRank" class="form-control" th:field="*{stopRank}"/>
-            </div>
-            <button type="submit" class="btn">Create</button>
-        </form>
-
-        <table class="companies" id="stList">
-            <tr>
-                <th colspan="4">Station list:</th>
-            </tr>
-
-            <tr th:each="station : ${bus.stopList}">
-                <td th:text="${station.getCompany().getCompanyName()}"></td>
-                <td><button type="button" onclick="moveUp(this)">↑</button></td>
-                <td><button type="button" onclick="moveDown(this)">↓</button></td>
-                <td><button type="button" onclick="deleteLine(this)">Delete</button></td>
-            </tr>
-
-            <tr>
-                <td id="address" colspan="4">Click on the map to choose company</td>
-                <td><button type="button" id="customFormBtn" onclick="addLine(this);changeText()">Add</button></td>
-            </tr>
-        </table>
-
-
+<!-- new add bus-->
         <form th:action="@{/buses/addBus}" th:object="${bus}" method="post">
-
-<!--        station list table deleted from here -->
-<!--        below: the list of stations for update busline -->
-
-<!--            <tr th:each="station : ${bus.stopList}">-->
-<!--                <td th:text="${station.getCompany().getCompanyName()}"></td>-->
-<!--                <td><button type="button" onclick="moveUp(this)">↑</button></td>-->
-<!--                <td><button type="button" onclick="moveDown(this)">↓</button></td>-->
-<!--                <td><button type="button" onclick="deleteLine(this)">Delete</button></td>-->
-<!--            </tr>-->
-
-            <br>
-
             <table class="busline">
                 <tr>
                     <td>Busline name:</td>
+                </tr>
+                <tr>
                     <td><input type="text" id="busName" required="true" class="form" th:field="*{busName}"></td>
+                    <td><button type="submit" id="customFormBtn">Ok</button></td>
                 </tr>
             </table>
+        </form>
 
-            <br>
-            <br>
-            <button type="submit" class="formBtn" style="width: 345px">Save busline</button>
+        <br>
+
+<!-- add stops -->
+        <form th:action="@{/buses/addStop}" th:object="${stop}" method="post">
+
+            <input hidden th:name="|bus.idBus|" th:value="${idOfBus}"/>
+
+            <table class="companies" id="stList">
+                <tr>
+                    <th colspan="2">Station list: </th>
+                    <th colspan="3" style="font-size:12px; text-decoration:none">Click on the map to choose company</th>
+                </tr>
+
+<!--                <tr th:each="station : ${bus.stopList}">-->
+<!--                    <td th:text="${station.getCompany().getCompanyName()}"></td>-->
+<!--                    <td><button type="button" onclick="moveUp(this)">↑</button></td>-->
+<!--                    <td><button type="button" onclick="moveDown(this)">↓</button></td>-->
+<!--                    <td><button type="button" onclick="deleteLine(this)">Delete</button></td>-->
+<!--                </tr>-->
+
+<!--                <tr>-->
+<!--                    <td id="address" colspan="4">Click on the map to choose company</td>-->
+<!--                    <td><button type="button" id="customFormBtn" onclick="addLine(this);changeText()">Add</button></td>-->
+<!--                </tr>-->
+
+                <tr>
+                    <td id="address" colspan="4">
+                        <input id="stopRank" class="form-control" th:field="*{company.idCompany}"/>
+                    </td>
+
+<!--                    <input th:each="c : ${companyList}" th:if="${c.address == 'A1'}" th:value="${c.idCompany}" th:text="${c.companyName}"/>-->
+<!--                    <input hidden th:name="|company.idCompany|" th:each="c : ${companyList}"-->
+<!--                           th:if="${c.address == y}" th:value="${c.idCompany}"/>-->
+
+                    <td><button type="submit" id="customFormBtn" class="btn" onclick="changeText()">Add</button></td>
+                </tr>
+
+<!--                <div class="form-group">-->
+<!--                    <label for="stopRank" class="control-label">Rank (please insert a number)</label> <input-->
+<!--                        id="stopRank" class="form-control" th:field="*{stopRank}"/>-->
+<!--                </div>-->
+            </table>
         </form>
 
         <script type="text/javascript" th:inline="javascript">
@@ -468,17 +455,29 @@
         function returnId(clicked_id) {
             <!-- instead of the id it returns the company name situated at the clicked address -->
             y = document.getElementById(clicked_id).innerHTML;
+            console.log("Company: " + y);
         }
 
         function changeAddress() {
-            var x = document.getElementById("address");
-            x.innerHTML = y;
+            console.log("Company: " + y);
+            /*[# th:each="company : ${companyList}"]*/
+                if (y == /*[[${company.getCompanyName()}]]*/) {
+                    console.log("Company from DB: " + /*[[${company.getCompanyName()}]]*/);
+                    var id = /*[[${company.getIdCompany()}]]*/
+                    console.log("Company from DB ID: " + id);
+                }
+            /*[/]*/
+
+<!--            var x = document.getElementById("address");-->
+<!--            x.innerHTML = "<input id='stopRank' class='form-control' th:field='*{company.idCompany}'/>";-->
+
+            document.getElementById("stopRank").value = id;
         }
 
-		function changeText() {
-			var x = document.getElementById("address");
-			x.innerHTML = "Click on the map to choose company";
-		}
+<!--		function changeText() {-->
+<!--			var x = document.getElementById("address");-->
+<!--			x.innerHTML = "Click on the map to choose company";-->
+<!--		}-->
 
 		function addLine(x) {
 			var index = x.parentNode.parentNode.rowIndex+1;
@@ -490,7 +489,11 @@
 			var cell4 = row.insertCell(3);
 
 			table.rows[index].cells[0].colSpan = 3;
-			cell1.innerHTML = x.parentNode.parentNode.cells[0].innerHTML;
+<!--			cell1.innerHTML = x.parentNode.parentNode.cells[0].innerHTML;-->
+            var text = 'A1';
+			cell1.innerHTML = '<input th:name="|company.idCompany|" th:value=text/>';
+
+
 <!--			cell1.innerHTML = "<input type='text' id='company' required='true' class='form' th:field='*{company}'>";-->
 
 			cell2.innerHTML = "<button type='button' id='customFormBtn' onclick='moveUp(this)'>↑</button>";
@@ -537,10 +540,86 @@
 
 		    }
 		}
-
 		</script>
-    </div>
 
+<!-- stuff to check if passing the id of submitted bus works -->
+
+<!--            <button type="button" onclick="showIdBus()">Show IdBus</button>-->
+<!--            <script type="text/javascript" th:inline="javascript">-->
+<!--            function showIdBus() {-->
+<!--                /*[# th:each="bus : ${busList}"]*/-->
+<!--                var x = /*[[${bus.getBusName()}]]*/ "test";-->
+<!--                console.log("busName="  + x);-->
+<!--                console.log("busIDs="  + /*[[${bus.getIdBus()}]]*/);-->
+<!--                /*[/]*/-->
+
+<!--                var y = /*[[${idOfBus}]]*/ "test";-->
+<!--                console.log("busId="  + y);-->
+<!--            }-->
+<!--            </script>-->
+
+<!-- business part for saving stop - copied up, in form div -->
+
+<!--            <input hidden th:name="|bus.idBus|" th:value="${idOfBus}"/>-->
+<!--            <input hidden th:name="|company.idCompany|" th:each="c : ${companyList}"-->
+<!--                   th:if="${c.address == 'A1'}" th:value="${c.idCompany}" th:text="${c.companyName}"/>-->
+
+<!--            <div class="form-group">-->
+<!--                <label class="control-label">Bus name</label>-->
+<!--                <select th:field="*{bus.idBus}">-->
+<!--                    <option th:each="bus : ${busList}" th:if= "${bus.idBus == idOfBus}" th:value="${bus.idBus}" th:text="${bus.busName}"></option>-->
+<!--                </select>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label class="control-label">Company</label>-->
+<!--                <span th:each="c : ${companyList}" th:if="${c.address == 'A1'}" th:value="${c.idCompany}" th:text="${c.companyName}"></span>-->
+<!--                <input th:field="*{company.idCompany}" th:each="c : ${companyList}" th:if="${c.address == 'A1'}" th:value="${c.idCompany}"/>-->
+
+<!--                <select th:field="*{company.idCompany}">-->
+<!--                    <option th:each="c : ${companyList}" th:if="${c.address == 'A1'}" th:value="${c.idCompany}" th:text="${c.companyName}"></option>-->
+<!--                </select>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label for="stopRank" class="control-label">Rank (please insert a number)</label> <input-->
+<!--                    id="stopRank" class="form-control" th:field="*{stopRank}"/>-->
+<!--            </div>-->
+<!--            <button type="submit" class="btn">Create</button>-->
+
+
+
+
+
+<!--        <form th:action="@{/buses/addBus}" th:object="${bus}" method="post">-->
+
+<!--        station list table deleted from here -->
+<!--        below: the list of stations for update busline -->
+
+<!--            <tr th:each="station : ${bus.stopList}">-->
+<!--                <td th:text="${station.getCompany().getCompanyName()}"></td>-->
+<!--                <td><button type="button" onclick="moveUp(this)">↑</button></td>-->
+<!--                <td><button type="button" onclick="moveDown(this)">↓</button></td>-->
+<!--                <td><button type="button" onclick="deleteLine(this)">Delete</button></td>-->
+<!--            </tr>-->
+
+<!--            <br>-->
+
+<!--            <table class="busline">-->
+<!--                <tr>-->
+<!--                    <td>Busline name:</td>-->
+<!--                    <td><input type="text" id="busName" required="true" class="form" th:field="*{busName}"></td>-->
+<!--                </tr>-->
+<!--            </table>-->
+
+<!--            <br>-->
+<!--            <br>-->
+<!--            <button type="submit" class="formBtn" style="width: 345px">Save busline</button>-->
+<!--        </form>-->
+
+
+
+    </div>
 </div>
 
 <!-- footer -->

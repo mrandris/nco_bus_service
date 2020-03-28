@@ -24,6 +24,8 @@ public class BusController {
     @Autowired
     private StopService stopService;
 
+    private Integer idOfBus;
+
     @RequestMapping("/findAll")
     public String findAllBuses(ModelMap model) {
         List<Bus> busList = busService.findAllBuses();
@@ -59,14 +61,6 @@ public class BusController {
 
 
     // new add bus! only name and ID
-//    @RequestMapping(value = "/addBus", method = RequestMethod.POST)
-//    public String addBus(@ModelAttribute(name = "bus") Bus bus, ModelMap model) {
-//        busService.saveBus(bus);
-//        List<Company> companyList = companyService.findAllCompanies();
-//        model.addAttribute("companyList", companyList);
-//        return "redirect:/buses/addBus";
-//    }
-
 
     @RequestMapping(value = "/addBus", method = RequestMethod.GET)
     public String addBus(ModelMap model) {
@@ -81,24 +75,36 @@ public class BusController {
         return "addBus";
     }
 
+    @RequestMapping(value = "/addBus", method = RequestMethod.POST)
+    public String create(@ModelAttribute(name = "bus") Bus bus, ModelMap model) {
+        busService.saveBus(bus);
+        idOfBus = bus.getIdBus();
+        System.out.println("id bus:" + idOfBus);
+
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
+        model.addAttribute("idOfBus", idOfBus);
+        return "redirect:http://localhost:8080/buses/addBus/";
+    }
+
+    @ModelAttribute
+    public void addAttributes(ModelMap model) {
+        model.addAttribute("idOfBus", idOfBus);
+    }
+
     @RequestMapping(value = "/addStop", method = RequestMethod.POST)
     public String addStop(@ModelAttribute(name = "stop") Stop stop, ModelMap model) {
         stopService.saveStop(stop);
+        System.out.println("id bus:" + idOfBus);
+
         List<Stop> stopList = stopService.findAllStops();
         model.addAttribute("stopList", stopList);
         List<Company> companyList = companyService.findAllCompanies();
         List<Bus> busList = busService.findAllBuses();
         model.addAttribute("busList", busList);
         model.addAttribute("companyList", companyList);
+        model.addAttribute("idOfBus", idOfBus);
         return "redirect:/buses/addBus";
-    }
-
-    @RequestMapping(value = "/addBus", method = RequestMethod.POST)
-    public String create(@ModelAttribute(name = "bus") Bus bus, ModelMap model) {
-        busService.saveBus(bus);
-        List<Bus> busList = busService.findAllBuses();
-        model.addAttribute("busList", busList);
-        return "busListView";
     }
 
     @RequestMapping(value = "/update/{idBus}", method = RequestMethod.GET)
