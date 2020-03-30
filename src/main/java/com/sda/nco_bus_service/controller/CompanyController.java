@@ -72,7 +72,6 @@ public class CompanyController {
     public String updateCompanyView(ModelMap model,  @PathVariable("idCompany") Integer idCompany) {
         Company temp = companyService.findById(idCompany);
         model.addAttribute("company", temp);
-        // most tettem be
         List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("companyList", companyList);
         return "updateCompany";

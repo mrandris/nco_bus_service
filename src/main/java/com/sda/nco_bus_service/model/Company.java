@@ -1,6 +1,7 @@
 package com.sda.nco_bus_service.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "company")
@@ -21,7 +22,7 @@ public class Company {
 //    private File logo;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private List<Stop> stopList;
+    private List<Stop> stopList = new ArrayList<>();
 
     public Integer getIdCompany() {
         return idCompany;

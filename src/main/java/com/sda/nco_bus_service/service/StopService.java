@@ -19,4 +19,8 @@ public class StopService {
     public Stop saveStop(Stop stop) {
         return stopRepository.save(stop);
     }
+
+    public void deleteStop(Integer idStop) {
+        stopRepository.deleteById(idStop);
+    }
 }

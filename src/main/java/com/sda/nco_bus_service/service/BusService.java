@@ -31,4 +31,5 @@ public class BusService {
     public Bus updateBus(Bus bus) {
         return busRepository.save(bus);
     }
+
 }

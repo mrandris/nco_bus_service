@@ -15,17 +15,17 @@
 <!-- map & list -->
 <div id="mapAndList">
     <div id="list">
-        <table class="buses">
+        <table class="companies">
             <tr>
                 <th colspan="2">
                     <div th:text="${bus.busName}"></div>
                 </th>
             </tr>
             <tr th:each="station : ${bus.stopList}">
+                <td class="st" th:text="'Station ' + ${bus.stopList.indexOf(station)+1} + ':'"></td>
                 <td class="st">
                     <a th:href="@{/companies/{id}(id=${station.getCompany().idCompany})}" th:text="${station.getCompany().getCompanyName()}"></a>
                 </td>
-                <td class="st"><div th:text="${station.getRank()}"></div></td>
             </tr>
         </table>
         <br>

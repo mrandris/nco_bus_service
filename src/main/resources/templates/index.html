@@ -5,8 +5,14 @@
     <title>NCO Bus service</title>
     <link rel="stylesheet" type="text/css" href="layoutstyle/nco_stylesheet.css">
 <!--    <link rel="stylesheet" type="text/css" href="templates/nco_stylesheet.css">-->
+    <script type="text/JavaScript">
+        function timeRefresh(timeoutPeriod) {
+            setTimeout("location.reload(true);", timeoutPeriod);
+        }
+    </script>
 </head>
 
+<body>
 <!-- header -->
 <div id="header" th:fragment="header">
     <div id="searchButton">
@@ -53,81 +59,43 @@
                     </div>
                 </div>
             </th>
-            <th class="menuButton"><div><a href="signin.html">Sign in</a></div></th>
+            <th class="menuButton">
+                <form th:action="@{/buses/run}" th:object="${bus}" method="post">
+                    <button type="submit" id="customFormBtn">Ok</button>
+                </form>
+            </th>
         </tr>
     </table>
 </div>
 
 <!-- map & list -->
 <div id="mapAndList">
+
+    <!-- list -->
     <div id="list">
+        <div th:each="bus : ${busList}">
+<!--            <meta http-equiv="refresh" content="1">-->
         <table class="routes">
             <tr>
-                <th>Bus 1</th>
+                <th th:text="${bus.busName}"></th>
             </tr>
             <tr>
                 <td>
                     <table class="stations">
                         <tr>
-                            <th></th>
-                            <th>
-                                <img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" >
-                            </th>
-                            <th></th>
+                            <th th:each="stop: ${bus.stopList}"><span th:if="${stop.isPresent == 1}"><img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" ></span></th>
                         </tr>
                         <tr>
-                            <td><div>Company 1</div></td>
-                            <td><div>Company 2</div></td>
-                            <td><div>Company 3</div></td>
+                            <td th:each="stop: ${bus.stopList}"><div><a th:href="@{/companies/{id}(id=${stop.getCompany().idCompany})}" th:text="${stop.getCompany().getCompanyName()}"></a></div></td>
                         </tr>
                     </table>
                 </td>
             </tr>
-            <tr>
-                <th>Bus 2</th>
-            </tr>
-            <tr>
-                <td>
-                    <table class="stations">
-                        <tr>
-                            <th></th>
-                            <th>
-                                <img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" >
-                            </th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><div>Company 1</div></td>
-                            <td><div>Company 2</div></td>
-                            <td><div>Company 3</div></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <th>Bus 3</th>
-            </tr>
-            <tr>
-                <td>
-                    <table class="stations">
-                        <tr>
-                            <th></th>
-                            <th>
-                                <img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" >
-                            </th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><div>Company 1</div></td>
-                            <td><div>Company 2</div></td>
-                            <td><div>Company 3</div></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
         </table>
+        </div>
     </div>
+
+    <!-- map -->
     <div id="map">
         <table id="grid">
             <tr>

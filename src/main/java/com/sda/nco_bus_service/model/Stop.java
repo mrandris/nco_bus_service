@@ -20,8 +20,8 @@ public class Stop {
     @Column(name = "stop_rank")
     private Integer stopRank;
 
-//    @Column(name = "id_bus_present")
-//    private Boolean isPresent;
+    @Column(name = "id_bus_present")
+    private Integer isPresent;
 
     public Integer getIdStop() {
         return idStop;
@@ -55,11 +55,11 @@ public class Stop {
         this.stopRank = stopRank;
     }
 
-//    public Boolean getPresent() {
-//        return isPresent;
-//    }
-//
-//    public void setPresent(Boolean present) {
-//        isPresent = present;
-//    }
+    public Integer getIsPresent() {
+        return isPresent;
+    }
+
+    public void setIsPresent(Integer isPresent) {
+        this.isPresent = isPresent;
+    }
 }

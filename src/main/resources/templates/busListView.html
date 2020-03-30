@@ -16,19 +16,20 @@
 <!-- map & list -->
 <div id="mapAndList">
     <div id="list">
-        <table class="buses">
+        <table class="companies">
+            <tr>
+                <th>Bus list</th>
+            </tr>
             <tr th:each="bus : ${busList}">
-                <th>
-                    <label class="lbl">
-                        Bus 1
-                        <input type="radio" name="radio">
-<!--                        asa vreau sa fie:-->
-<!--                        <div class="checkmark" th:text="${bus.busName}"></div>-->
-                        <div class="checkmark"><a th:href="@{{id}(id=${bus.idBus})}" class="checkmark" th:text="${bus.busName}"></a></div>
-                    </label>
-                </th>
+                <td><div><a th:href="@{{id}(id=${bus.idBus})}" th:text="${bus.busName}"></a></div></td>
             </tr>
         </table>
+        <br>
+        <div>
+            <form action="/buses/addBus">
+                <button type="submit" class="formBtn">Add new busline</button>
+            </form>
+        </div>
     </div>
 
     <!-- map -->

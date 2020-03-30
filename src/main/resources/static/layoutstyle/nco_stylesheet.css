@@ -180,6 +180,10 @@ a {
 	border: 1px solid rgb(230,178,41);
 }
 
+.routes {
+    width: 350px;
+}
+
 .routes th {
 	text-align: left;
 	color: white;
@@ -189,24 +193,29 @@ a {
 }
 
 .stations {
-	width: 342px;
+    table-layout: fixed;
+    width: 350px;
 	border-collapse: collapse;
 }
 
 .stations th {
 	height: 20px;
 	border-bottom: 3px dashed white;
-	text-align: center;
+	text-align: left;
 }
 
 .stations td {
 	color: white;
 	height: 120px;
-	transform: rotate(90deg);
-	vertical-align: middle;
+	vertical-align: top;
 }
 
 .stations div {
+    white-space: nowrap;
+    width: 100px;
+    transform: rotate(90deg);
+    transform-origin: 10% 70%;
+    text-overflow: clip;
 	border: 1px solid white;
 	text-align: center;
 	border-radius: 5px;
@@ -392,7 +401,7 @@ textarea {
 	font-size: 14px;
 	background-color: transparent;
 	margin: 5px;
-	width: 364px;
+	width: 340px;
 	height: 28px;
 	color: white;
 	border: 1px solid white;

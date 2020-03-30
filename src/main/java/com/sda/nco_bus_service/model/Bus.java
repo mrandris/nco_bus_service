@@ -1,6 +1,7 @@
 package com.sda.nco_bus_service.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "bus")
@@ -14,7 +15,7 @@ public class Bus {
     private String busName;
 
     @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
-    private List<Stop> stopList;
+    private List<Stop> stopList = new ArrayList<>();
 
     public Integer getIdBus() {
         return idBus;
@@ -39,4 +40,5 @@ public class Bus {
     public void setStopList(List<Stop> stopList) {
         this.stopList = stopList;
     }
+
 }
