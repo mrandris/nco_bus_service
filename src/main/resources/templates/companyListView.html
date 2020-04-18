@@ -122,7 +122,7 @@
                 <th>Company list</th>
             </tr>
             <tr th:each="company : ${companyList}">
-                <td><div><a th:href="@{{id}(id=${company.idCompany})}" th:text="${company.CompanyName}"></a></div></td>
+                <td><div><a onmouseover="mouseover(this)" onmouseout="mouseout()" th:href="@{{id}(id=${company.idCompany})}" th:text="${company.CompanyName}"></a></div></td>
                 <td><div th:text="${company.CompanyName}+' logo'"></div></td> <!-- logo??? -->
                 <script type="text/javascript" th:inline="javascript">
                     var x = /*[[${company.getAddress()}]]*/ "test";
@@ -139,6 +139,25 @@
         </div>
 
     </div>
+
+    <!-- list script -->
+    <script type="text/javascript" th:inline="javascript">
+        function mouseover(e) {
+            companyName = e.innerHTML;
+
+            /*[# th:each="company : ${companyList}"]*/
+                companyNameDB = /*[[${company.companyName}]]*/;
+                if (companyName == companyNameDB) {
+                    elementID = /*[[${company.getAddress()}]]*/;
+                }
+            /*[/]*/
+            document.getElementById(elementID).style.backgroundColor = "rgb(230,178,41)";
+        }
+
+        function mouseout() {
+            document.getElementById(elementID).style.backgroundColor = "transparent";
+        }
+    </script>
 </div>
 
 <!-- footer -->

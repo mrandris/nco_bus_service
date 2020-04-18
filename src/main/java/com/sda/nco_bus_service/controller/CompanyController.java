@@ -26,8 +26,8 @@ public class CompanyController {
     @RequestMapping("/findAll")
     public String findAllCompanies(ModelMap model) {
         List<Bus> busList = busService.findAllBuses();
-        List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("busList", busList);
+        List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("companyList", companyList);
         return "companyListView";
     }
@@ -36,8 +36,8 @@ public class CompanyController {
     public String findCompanyById(ModelMap model, @PathVariable("idCompany") Integer idCompany) {
         Company company = companyService.findById(idCompany);
         model.addAttribute("company", company);
-        System.out.println(company.getCompanyName());
-        // most tettem be
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
         List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("companyList", companyList);
         return "companyView";
@@ -46,15 +46,14 @@ public class CompanyController {
     @RequestMapping(value = "/delete/{idCompany}", method = RequestMethod.GET)
     public String deleteCompany(ModelMap model, @PathVariable("idCompany") Integer idCompany) {
         companyService.deleteCompany(idCompany);
-        List<Company> companyList = companyService.findAllCompanies();
-        model.addAttribute("companyList", companyList);
         return "redirect:http://localhost:8080/companies/findAll";
     }
 
     @RequestMapping(value = "/addCompany", method = RequestMethod.GET)
     public String addCompany(ModelMap model) {
         model.addAttribute("company", new Company());
-        // most tettem be
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
         List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("companyList", companyList);
         return "addCompany";
@@ -63,15 +62,16 @@ public class CompanyController {
     @RequestMapping(value = "/addCompany", method = RequestMethod.POST)
     public String create(@ModelAttribute(name = "company") Company company, ModelMap model) {
         companyService.saveCompany(company);
-        List<Company> companyList = companyService.findAllCompanies();
-        model.addAttribute("companyList", companyList);
-        return "companyListView";
+        return "redirect:http://localhost:8080/companies/findAll";
     }
 
     @RequestMapping(value = "/update/{idCompany}", method = RequestMethod.GET)
     public String updateCompanyView(ModelMap model,  @PathVariable("idCompany") Integer idCompany) {
         Company temp = companyService.findById(idCompany);
         model.addAttribute("company", temp);
+
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
         List<Company> companyList = companyService.findAllCompanies();
         model.addAttribute("companyList", companyList);
         return "updateCompany";
@@ -80,8 +80,6 @@ public class CompanyController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateCompanySave(ModelMap model, @ModelAttribute(name = "company") Company company) {
         companyService.updateCompany(company);
-        List<Company> companyList = companyService.findAllCompanies();
-        model.addAttribute("companyList", companyList);
         return "redirect:http://localhost:8080/companies/findAll";
     }
 }

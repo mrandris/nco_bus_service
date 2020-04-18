@@ -6,27 +6,17 @@
     <link rel="stylesheet" type="text/css" th:href="@{/layoutstyle/nco_stylesheet.css}">
 </head>
 <body>
+
 <!-- header -->
 <div th:insert="index :: header"></div>
 
 <!-- menu -->
 <div th:insert="index :: menuBar"></div>
 
-<!--<h1>Update bus</h1>-->
-
-<!--<form th:action="@{/buses/update}" th:object="${bus}" method="post">-->
-<!--    <div class="form-group">-->
-<!--        <label for="busName" class="control-label">Bus name</label>-->
-<!--        <input id="busName" class="form-control" th:field="*{busName}"/>-->
-<!--    </div>-->
-<!--    <input id="idBus" type="hidden" th:field="*{idBus}"/>-->
-<!--    <button type="submit" class="btn">Update</button>-->
-<!--</form>-->
-
 <!-- map & list -->
 <div id="mapAndList">
 
-    <!-- map -->
+<!-- map -->
     <div id="map">
         <table id="grid">
             <tr>
@@ -384,7 +374,7 @@
         </table>
     </div>
 
-    <!-- map script -->
+<!-- map script -->
     <script type="text/javascript" th:inline="javascript">
         /*[# th:each="company : ${companyList}"]*/
         var x = /*[[${company.getAddress()}]]*/ "companyAddress";
@@ -393,9 +383,9 @@
         /*[/]*/
     </script>
 
-    <!-- list -->
+<!-- list -->
     <div id="list">
-        <!-- busline header -->
+<!-- busline header -->
         <table class="busline">
             <tr>
                 <th colspan="2">Update busline</th>
@@ -403,14 +393,12 @@
         </table>
         <br>
 
-        <!-- new add bus - only name and auto-generated ID-->
+<!-- update bus - only name and auto-generated ID-->
         <form th:action="@{/buses/update}" th:object="${bus}" method="post">
             <table class="busline">
                 <tr>
-                    <td>Busline name:</td>
-                    <input id="idBus" type="hidden" th:field="*{idBus}"/>
+                    <td>Busline name:</td><input id="idBus" type="hidden" th:field="*{idBus}"/>
                 </tr>
-
                 <tr>
                     <td><input type="text" id="busName" required="true" class="form" th:field="*{busName}"></td>
                     <td><button type="submit" id="customFormBtn">Ok</button></td>
@@ -419,10 +407,11 @@
         </form>
         <br>
 
-        <!-- add stops -->
+<!-- add stops -->
         <form th:action="@{/buses/update/addStop}" th:object="${stop}" method="post">
             <!-- idBus taken from previous <form> -->
             <input hidden th:name="|bus.idBus|" th:value="${bus.idBus}"/>
+            <input hidden th:name="|isPresent|" th:value="0"/>
 
             <table class="companies" id="stList">
                 <tr>
@@ -431,7 +420,7 @@
 
                 <tr>
                     <td>Click on the map to choose company</td>
-<!--                    <td id="address" colspan="4"><input id="stopRank" class="form-control" th:field="*{company.idCompany}"/></td>-->
+                    <td id="address" colspan="4"><input id="stopID" class="form-control" th:field="*{company.idCompany}"/></td>
                     <td><button type="submit" id="customFormBtn" class="btn">Add</button></td>
                 </tr>
             </table>
@@ -446,6 +435,8 @@
             console.log("Company: " + y);
         }
 
+        <!-- make returnId return the elements ID (=company address), find company by address, not by name -->
+
         <!-- gets id of the company from database and passes it to <form> "add Stop" -->
         function changeAddress() {
             /*[# th:each="company : ${companyList}"]*/
@@ -455,7 +446,7 @@
                     console.log("Company from DB ID: " + id);
                 }
             /*[/]*/
-            document.getElementById("stopRank").value = id;
+            document.getElementById("stopID").value = id;
         }
 		</script>
 
@@ -464,8 +455,26 @@
             <table class="companies">
                 <tr th:each="stop : ${bus.stopList}">
                     <td th:text="'Station ' + ${bus.stopList.indexOf(stop)+1} + ':'"></td>
-                    <td th:text="${stop.company.getCompanyName()}"></td>
-                    <td><div class="bordered"><a th:href="@{/buses/update/deleteStop/{id}(id=${stop.getIdStop()})}">Delete stop</a></div></td>
+                    <td><a onmouseover="mouseover(this)" onmouseout="mouseout()" th:href="@{/companies/{id}(id=${stop.getCompany().idCompany})}" th:text="${stop.company.getCompanyName()}"></a></td>
+                    <td><div class="bordered"><a onmouseover="mouseover(this)" onmouseout="mouseout()" th:href="@{/buses/deleteStop/{id}(id=${stop.getIdStop()})}">Delete stop</a></div></td>
+
+                    <script type="text/javascript" th:inline="javascript">
+                        function mouseover(e) {
+                            companyName = e.innerHTML;
+
+                            /*[# th:each="company : ${companyList}"]*/
+                                companyNameDB = /*[[${company.companyName}]]*/;
+                                if (companyName == companyNameDB) {
+                                    elementID = /*[[${company.getAddress()}]]*/;
+                                }
+                            /*[/]*/
+                            document.getElementById(elementID).style.backgroundColor = "rgb(230,178,41)";
+                        }
+
+                        function mouseout() {
+                            document.getElementById(elementID).style.backgroundColor = "transparent";
+                        }
+                    </script>
                 </tr>
             </table>
         </div>

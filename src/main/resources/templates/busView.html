@@ -24,7 +24,7 @@
             <tr th:each="station : ${bus.stopList}">
                 <td class="st" th:text="'Station ' + ${bus.stopList.indexOf(station)+1} + ':'"></td>
                 <td class="st">
-                    <a th:href="@{/companies/{id}(id=${station.getCompany().idCompany})}" th:text="${station.getCompany().getCompanyName()}"></a>
+                    <a onmouseover="mouseover(this)" onmouseout="mouseout()" th:href="@{/companies/{id}(id=${station.getCompany().idCompany})}" th:text="${station.getCompany().getCompanyName()}"></a>
                 </td>
             </tr>
         </table>
@@ -34,6 +34,25 @@
         <div class="bordered"><a th:href="@{/buses/delete/{id}(id=${bus.idBus})}">Delete busline</a></div>
 
     </div>
+
+    <!-- list script -->
+    <script type="text/javascript" th:inline="javascript">
+        function mouseover(e) {
+            companyName = e.innerHTML;
+
+            /*[# th:each="company : ${companyList}"]*/
+                companyNameDB = /*[[${company.companyName}]]*/;
+                if (companyName == companyNameDB) {
+                    elementID = /*[[${company.getAddress()}]]*/;
+                }
+            /*[/]*/
+            document.getElementById(elementID).style.backgroundColor = "rgb(230,178,41)";
+        }
+
+        function mouseout() {
+            document.getElementById(elementID).style.backgroundColor = "transparent";
+        }
+    </script>
 
     <!-- map -->
     <div id="map">

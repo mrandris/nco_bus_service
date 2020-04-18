@@ -420,7 +420,7 @@
 
                 <tr>
                     <td>Click on the map to choose company</td>
-                    <td id="address" colspan="4"><input id="stopRank" class="form-control" th:field="*{company.idCompany}"/></td>
+                    <td id="address" colspan="4"><input id="stopID" class="form-control" th:field="*{company.idCompany}"/></td>
                     <td><button type="submit" id="customFormBtn" class="btn">Add</button></td>
                 </tr>
             </table>
@@ -444,72 +444,36 @@
                     console.log("Company from DB ID: " + id);
                 }
             /*[/]*/
-            document.getElementById("stopRank").value = id;
+            document.getElementById("stopID").value = id;
         }
-
-        <!-- all sorts of functions to modify <table> , currently not using any of them... -->
-
-		function addLine(x) {
-			var index = x.parentNode.parentNode.rowIndex+1;
-			var table = document.getElementById("stList");
-			var row = table.insertRow(index-1);
-			var cell1 = row.insertCell(0);
-			var cell2 = row.insertCell(1);
-			var cell3 = row.insertCell(2);
-			var cell4 = row.insertCell(3);
-
-			table.rows[index].cells[0].colSpan = 3;
-			cell1.innerHTML = x.parentNode.parentNode.cells[0].innerHTML;
-			cell2.innerHTML = "<button type='button' id='customFormBtn' onclick='moveUp(this)'>↑</button>";
-			cell3.innerHTML = "<button type='button' id='customFormBtn' onclick='moveDown(this)'>↓</button>";
-			cell4.innerHTML = "<button type='button' id='customFormBtn' onclick='deleteLine(this)'>Delete</button>";
-			printTable();
-		}
-
-		function deleteLine(x) {
-			var index = x.parentNode.parentNode.rowIndex;
-			document.getElementById("stList").deleteRow(index);
-			printTable();
-		}
-
-		function moveUp(x) {
-			var index = x.parentNode.parentNode.rowIndex;
-			var content1 = x.parentNode.parentNode.cells[0].innerHTML;
-			var content2 = document.getElementById("stList").rows[index-1].cells[0].innerHTML;
-
-			document.getElementById("stList").rows[index-1].cells[0].innerHTML = content1;
-			document.getElementById("stList").rows[index].cells[0].innerHTML = content2;
-			printTable();
-		}
-
-		function moveDown(x) {
-			var index = x.parentNode.parentNode.rowIndex;
-			var content1 = x.parentNode.parentNode.cells[0].innerHTML;
-			var content2 = document.getElementById("stList").rows[index+1].cells[0].innerHTML;
-
-			document.getElementById("stList").rows[index+1].cells[0].innerHTML = content1;
-			document.getElementById("stList").rows[index].cells[0].innerHTML = content2;
-			printTable();
-		}
-
-        function printTable() {
-            console.log();
-		    var table = document.getElementById("stList");
-		    for (var i = 1; i<table.rows.length-1; i++) {
-		        row = table.rows[i];
-		        console.log(row.cells[0].innerHTML + " / Rank: " + i);
-
-		    }
-		}
 		</script>
 
 <!-- bus line final -->
          <div th:each="bus : ${busList}" th:if="${bus.idBus == idOfBus}">
-            <table class="companies">
+             <table class="companies">
                 <tr th:each="stop : ${bus.stopList}">
                     <td th:text="'Station ' + ${bus.stopList.indexOf(stop)+1} + ':'"></td>
-                    <td th:text="${stop.company.getCompanyName()}"></td>
-                    <td><div class="bordered"><a th:href="@{/buses/deleteStop/{id}(id=${stop.getIdStop()})}">Delete stop</a></div></td>
+                    <td><a onmouseover="mouseover(this)" onmouseout="mouseout()" th:href="@{/companies/{id}(id=${stop.getCompany().idCompany})}" th:text="${stop.company.getCompanyName()}"></a></td>
+                    <td><div class="bordered"><a onmouseover="mouseover(this)" onmouseout="mouseout()" th:href="@{/buses/deleteStop/{id}(id=${stop.getIdStop()})}">Delete stop</a></div></td>
+
+                    <script type="text/javascript" th:inline="javascript">
+                        function mouseover(e) {
+                            companyName = e.innerHTML;
+
+                            /*[# th:each="company : ${companyList}"]*/
+                                companyNameDB = /*[[${company.companyName}]]*/;
+                                if (companyName == companyNameDB) {
+                                    elementID = /*[[${company.getAddress()}]]*/;
+                                }
+                            /*[/]*/
+                            document.getElementById(elementID).style.backgroundColor = "rgb(230,178,41)";
+                        }
+
+                        function mouseout() {
+                            document.getElementById(elementID).style.backgroundColor = "transparent";
+                        }
+                    </script>
+
                 </tr>
             </table>
          </div>

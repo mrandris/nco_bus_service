@@ -17,9 +17,6 @@ public class Stop {
     @JoinColumn(name="id_comp", nullable=false)
     private Company company;
 
-    @Column(name = "stop_rank")
-    private Integer stopRank;
-
     @Column(name = "id_bus_present")
     private Integer isPresent;
 
@@ -45,14 +42,6 @@ public class Stop {
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    public Integer getStopRank() {
-        return stopRank;
-    }
-
-    public void setStopRank(Integer stopRank) {
-        this.stopRank = stopRank;
     }
 
     public Integer getIsPresent() {

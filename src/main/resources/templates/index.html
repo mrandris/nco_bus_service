@@ -34,7 +34,7 @@
                     <div class="dropdown-content">
                         <table style="margin: 0px">
                             <tr th:each="company : ${companyList}">
-                                <td><a th:href="@{{id}(id=${company.idCompany})}" th:text="${company.CompanyName}"></a></td>
+                                <td><a th:href="@{/companies/{id}(id=${company.idCompany})}" th:text="${company.CompanyName}"></a></td>
                             </tr>
                             <tr>
                                 <td><a href="/companies/findAll">Show list</a></td>
@@ -50,7 +50,7 @@
                     <div class="dropdown-content">
                         <table style="margin: 0px">
                             <tr th:each="bus : ${busList}">
-                                <td><a th:href="@{{id}(id=${bus.idBus})}" th:text="${bus.busName}"></a></td>
+                                <td><a th:href="@{/buses/{id}(id=${bus.idBus})}" th:text="${bus.busName}"></a></td>
                             </tr>
                             <tr>
                                 <td><a href="/buses/addBus">Add new route</a></td>
@@ -61,7 +61,7 @@
             </th>
             <th class="menuButton">
                 <form th:action="@{/buses/run}" th:object="${bus}" method="post">
-                    <button type="submit" id="customFormBtn">Ok</button>
+                    <button type="submit" id="runBtn">Move bus!</button>
                 </form>
             </th>
         </tr>
@@ -86,7 +86,7 @@
                             <th th:each="stop: ${bus.stopList}"><span th:if="${stop.isPresent == 1}"><img src = "images/bus.png" width = "30px" height= "40px" alt = "Bus" ></span></th>
                         </tr>
                         <tr>
-                            <td th:each="stop: ${bus.stopList}"><div><a th:href="@{/companies/{id}(id=${stop.getCompany().idCompany})}" th:text="${stop.getCompany().getCompanyName()}"></a></div></td>
+                            <td th:each="stop: ${bus.stopList}"><div><a onmouseover="mouseover(this)" onmouseout="mouseout()" th:href="@{/companies/{id}(id=${stop.getCompany().idCompany})}" th:text="${stop.getCompany().getCompanyName()}"></a></div></td>
                         </tr>
                     </table>
                 </td>
@@ -94,6 +94,25 @@
         </table>
         </div>
     </div>
+
+    <!-- list script -->
+    <script type="text/javascript" th:inline="javascript">
+        function mouseover(e) {
+            companyName = e.innerHTML;
+
+            /*[# th:each="company : ${companyList}"]*/
+                companyNameDB = /*[[${company.companyName}]]*/;
+                if (companyName == companyNameDB) {
+                    elementID = /*[[${company.getAddress()}]]*/;
+                }
+            /*[/]*/
+            document.getElementById(elementID).style.backgroundColor = "rgb(230,178,41)";
+        }
+
+        function mouseout() {
+            document.getElementById(elementID).style.backgroundColor = "transparent";
+        }
+    </script>
 
     <!-- map -->
     <div id="map">

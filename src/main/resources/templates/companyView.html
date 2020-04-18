@@ -5,7 +5,7 @@
     <title>NCO bus service - Company</title>
     <link rel="stylesheet" type="text/css" th:href="@{/layoutstyle/nco_stylesheet.css}">
 </head>
-<body>
+<body onload="paintAddressGrid()">
 <!-- header -->
 <div th:insert="index :: header"></div>
 
@@ -32,7 +32,16 @@
         <br>
         <div class="bordered"><a th:href="@{/companies/delete/{id}(id=${company.idCompany})}">Delete company</a></div>
 
+        <script type="text/javascript" th:inline="javascript">
+        function paintAddressGrid() {
+            elementID = /*[[${company.address}]]*/;
+            document.getElementById(elementID).style.backgroundColor = "rgb(230,178,41)";
+            }
+        </script>
+
     </div>
+
+
 
     <!-- map -->
     <div id="map">

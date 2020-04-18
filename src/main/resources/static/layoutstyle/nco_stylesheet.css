@@ -431,3 +431,20 @@ textarea {
 	border: 1px solid rgb(230,178,41);
 }
 
+#runBtn {
+	background-color: transparent;
+	font-weight: bold;
+    font-size: 18px;
+	height: 37px;
+    width: 120px;
+	color: white;
+	border: none;
+	text-align: center;
+}
+
+#runBtn:hover {
+	background-color: rgb(230,178,41);
+	color: white;
+	border: 1px solid white;
+}
+
