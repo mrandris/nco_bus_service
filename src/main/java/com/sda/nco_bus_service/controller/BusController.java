@@ -60,7 +60,6 @@ public class BusController {
     @RequestMapping(value = "/addBus", method = RequestMethod.GET)
     public String addBus(ModelMap model) {
         model.addAttribute("bus", new Bus());
-        model.addAttribute("stop", new Stop());
 
         List<Bus> busList = busService.findAllBuses();
         model.addAttribute("busList", busList);
@@ -80,13 +79,19 @@ public class BusController {
         nameOfBus = bus.getBusName();
         model.addAttribute("nameOfBus", nameOfBus);
 
-        return "redirect:http://localhost:8080/buses/addBus/";
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
+        List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("companyList", companyList);
+
+        return "redirect:http://localhost:8080/buses/addStop/";
     }
 
     @RequestMapping(value = "/update/{idBus}", method = RequestMethod.GET)
     public String updateBusView(ModelMap model,  @PathVariable("idBus") Integer idBus) {
         Bus temp = busService.findById(idBus);
         model.addAttribute("bus", temp);
+        model.addAttribute("stop", new Stop());
 
         List<Bus> busList = busService.findAllBuses();
         model.addAttribute("busList", busList);
@@ -98,14 +103,20 @@ public class BusController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateBusSave(@ModelAttribute(name = "bus") Bus bus, ModelMap model) {
-        busService.updateBus(bus);
-
         idOfBus = bus.getIdBus();
+        busService.updateBus(bus);
+//        busService.updateBus(busService.findById(idOfBus));
+
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
+        List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("companyList", companyList);
+
         model.addAttribute("idOfBus", idOfBus);
         nameOfBus = bus.getBusName();
         model.addAttribute("nameOfBus", nameOfBus);
 
-        return "redirect:http://localhost:8080/buses/addBus/";
+        return "redirect:http://localhost:8080/buses/addStop/";
     }
 
     @ModelAttribute
@@ -114,16 +125,36 @@ public class BusController {
         model.addAttribute("nameOfBus", nameOfBus);
     }
 
-    @RequestMapping(value = "/addStop", method = RequestMethod.POST)
-    public String addStop(@ModelAttribute(name = "stop") Stop stop, ModelMap model) {
-        stopService.saveStop(stop);
-        return "redirect:http://localhost:8080/buses/addBus/";
+    @RequestMapping(value = "/addStop", method = RequestMethod.GET)
+    public String addStop(ModelMap model) {
+        model.addAttribute("stop", new Stop());
+
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
+        List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("companyList", companyList);
+
+//        return "redirect:http://localhost:8080/buses/addBus/";
+        return "addStop";
     }
+
+    @RequestMapping(value = "/addStop", method = RequestMethod.POST)
+    public String createStop(@ModelAttribute(name = "stop") Stop stop, ModelMap model) {
+        stopService.saveStop(stop);
+        List<Bus> busList = busService.findAllBuses();
+        model.addAttribute("busList", busList);
+        List<Company> companyList = companyService.findAllCompanies();
+        model.addAttribute("companyList", companyList);
+
+//        return "redirect:http://localhost:8080/buses/addBus/";
+        return "redirect:http://localhost:8080/buses/addStop/";
+    }
+
 
     @RequestMapping(value = "/deleteStop/{idStop}", method = RequestMethod.GET)
     public String deleteStop(ModelMap model, @PathVariable("idStop") Integer idStop) {
         stopService.deleteStop(idStop);
-        return "redirect:http://localhost:8080/buses/addBus/";
+        return "redirect:http://localhost:8080/buses/addStop/";
     }
 
     int i = 0;
